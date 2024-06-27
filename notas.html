@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notas - IPC</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="custom.css">
+</head>
+<body>
+  <header class="bg-primary text-white py-3">
+    <div class="container">
+      <h1>Instituto Politécnico de Camacupa</h1>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item"><a href="index.html" class="nav-link text-white">Página Inicial</a></li>
+          <li class="nav-item"><a href="blog.html" class="nav-link text-white">Blog</a></li>
+          <li class="nav-item"><a href="cursos.html" class="nav-link text-white">Cursos</a></li>
+          <li class="nav-item"><a href="prova-online.html" class="nav-link text-white">Prova Online</a></li>
+          <li class="nav-item"><a href="matricula.html" class="nav-link text-white">Matrícula</a></li>
+          <li class="nav-item"><a href="notas.html" class="nav-link text-white">Notas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="notas" class="my-5">
+    <div class="container">
+      <h2 class="text-center">Consultar Notas</h2>
+      <form id="consulta-notas-form" class="my-4">
+        <div class="form-group">
+          <label for="bi">Número de BI:</label>
+          <input type="text" id="bi" name="bi" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Consultar</button>
+      </form>
+
+      <div id="resultados" class="d-none">
+        <h3 class="text-center">Resultados</h3>
+        <p><strong>Nome:</strong> <span id="nome-estudante"></span></p>
+        <p><strong>Curso:</strong> <span id="curso-estudante"></span></p>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Disciplina</th>
+              <th>Nota</th>
+            </tr>
+          </thead>
+          <tbody id="notas-tbody"></tbody>
+        </table>
+        <div class="alert alert-danger d-none" id="resultado-final"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-white py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h3>News</h3>
+          <p>Últimas notícias do Instituto Politécnico de Camacupa.</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Políticas e Cookies</h3>
+          <p>Informações sobre nossas políticas e uso de cookies.</p>
+        </div>
+        <div class="col-md-4">
+          <h3>Newsletter</h3>
+          <p>Assine nossa newsletter para receber atualizações.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    document.getElementById('consulta-notas-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const bi = document.getElementById('bi').value;
+
+      fetch(`/api/students/${bi}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Student not found');
+          }
+          return response.json();
+        })
+        .then(student => {
+          document.getElementById('nome-estudante').textContent = student.nome;
+          document.getElementById('curso-estudante').textContent = student.curso;
+
+          const tbody = document.getElementById('notas-tbody');
+          tbody.innerHTML = '';
+          student.notas.forEach(nota => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${nota.disciplina}</td><td class="nota">${nota.nota}</td>`;
+            tbody.appendChild(tr);
+          });
+
+          const notas = document.querySelectorAll('.nota');
+          let negativas = 0;
+
+          notas.forEach(nota => {
+            if (parseInt(nota.innerText) < 50) {
+              negativas++;
+              nota.parentElement.classList.add('table-danger');
+            }
+          });
+
+          const resultadoFinal = document.getElementById('resultado-final');
+
+          if (negativas > 4) {
+            resultadoFinal.classList.remove('d-none');
+            resultadoFinal.textContent = 'O estudante está reprovado!';
+          } else if (negativas <= 2) {
+            resultadoFinal.classList.remove('d-none');
+            resultadoFinal.classList.remove('alert-danger');
+            resultadoFinal.classList.add('alert-warning');
+            resultadoFinal.textContent = 'O estudante está aprovado, mas precisa recuperar algumas disciplinas.';
+          } else {
+            resultadoFinal.classList.remove('d-none');
+            resultadoFinal.classList.remove('alert-danger');
+            resultadoFinal.classList.add('alert-success');
+            resultadoFinal.textContent = 'O estudante está aprovado!';
+          }
+
+          document.getElementById('resultados').classList.remove('d-none');
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    });
+  </script>
+</body>
+</html>

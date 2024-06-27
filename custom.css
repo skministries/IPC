@@ -1,0 +1,43 @@
+body {
+  background-color: #f8f9fa;
+}
+
+h1, h2, h3 {
+  color: #343a40;
+}
+
+header {
+  background-color: #007bff;
+}
+
+nav .nav-link {
+  color: #ffffff;
+}
+
+.card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.btn-primary {
+  background-color: #28a745;
+  border-color: #28a745;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
+}
+
+footer {
+  background-color: #343a40;
+}
+
+footer h3 {
+  color: #ffc107;
+}

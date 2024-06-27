@@ -1,0 +1,42 @@
+.botao-azul {
+  Display: inline-block;
+  Background-color: #007BFF;
+  Color: #fff;
+  Text-decoration: none;
+  Padding: 10px 20px;
+  Border-radius: 5px;
+  Margin-top: 10px;
+}
+
+.botao-azul:hover {
+  Background-color: #0056b3;
+}
+
+/* Estilos específicos para o rodapé estilo TV */
+.rodape-tv {
+  Background-color: #87CEEB; /* Azul bebê */
+  Color: #333;
+  Padding: 20px 0;
+  Text-align: center;
+}
+
+.rodape-tv .footer-column {
+  Width: 33.33%;
+  Display: inline-block;
+  Vertical-align: top;
+  Padding: 0 20px;
+  Text-align: left;
+}
+
+.rodape-tv .footer-column h3 {
+  Margin-bottom: 10px;
+}
+
+.rodape-tv ul {
+  List-style: none;
+  Padding: 0;
+}
+
+.rodape-tv ul li {
+  Margin-bottom: 5px;
+}

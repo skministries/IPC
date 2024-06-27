@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inscrição - IPC</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="custom.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    header {
+      background-color: #343a40;
+      color: #fff;
+      padding: 15px 0;
+    }
+    header h1 {
+      margin: 0;
+    }
+    header nav ul {
+      list-style: none;
+      padding: 0;
+    }
+    header nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+    }
+    #inscricao {
+      margin: 20px 0;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    footer {
+      background-color: #343a40;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer-column {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Instituto Politécnico de Camacupa</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Página Inicial</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="cursos.html">Cursos</a></li>
+          <li><a href="prova-online.html">Prova Online</a></li>
+          <li><a href="matricula.html">Matrícula</a></li>
+          <li><a href="notas.html">Notas</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="inscricao" class="container">
+    <h2 class="text-center">Inscrição</h2>
+    <p class="text-center">Confirme seu curso escolhido e preencha seus dados para a inscrição.</p>
+    <form action="inscricao.php" method="POST" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="curso">Curso Escolhido:</label>
+        <input type="text" id="curso" name="curso" class="form-control" readonly>
+      </div>
+      <div class="form-group">
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="nome_pai">Nome do Pai:</label>
+        <input type="text" id="nome_pai" name="nome_pai" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="nome_mae">Nome da Mãe:</label>
+        <input type="text" id="nome_mae" name="nome_mae" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="numero">Número de Identificação:</label>
+        <input type="text" id="numero" name="numero" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label for="foto">Fotografia (PDF):</label>
+        <input type="file" id="foto" name="foto" class="form-control-file" accept=".pdf" required>
+      </div>
+      <div class="form-group">
+        <label for="certificado">Certificado (PDF):</label>
+        <input type="file" id="certificado" name="certificado" class="form-control-file" accept=".pdf" required>
+      </div>
+      <div class="form-group">
+        <label for="bi">Bilhete de Identidade (PDF):</label>
+        <input type="file" id="bi" name="bi" class="form-control-file" accept=".pdf" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Enviar Inscrição</button>
+    </form>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-column">
+          <h3>Informações</h3>
+          <p>Últimas notícias do Instituto Politécnico de Camacupa.</p>
+        </div>
+        <div class="col-md-4 footer-column">
+          <h3>Localização</h3>
+          <div id="map-container">
+            <!-- Mapa -->
+          </div>
+        </div>
+        <div class="col-md-4 footer-column">
+          <h3>Contatos</h3>
+          <p>Email: contato@ipc.academy</p>
+          <p>Telefone: (99) 9999-9999</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function getCursoFromURL() {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get('curso');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const curso = getCursoFromURL();
+      if (curso) {
+        document.getElementById('curso').value = curso;
+      }
+    });
+  </script>
+</body>
+</html>

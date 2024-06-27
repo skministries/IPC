@@ -1,0 +1,14 @@
+{
+  "name": "ipc-app",
+  "version": "1.0.0",
+  "description": "Sistema de gestão de notas do Instituto Politécnico de Camacupa",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9"
+  }
+}
